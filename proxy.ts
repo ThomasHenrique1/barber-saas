@@ -10,6 +10,8 @@ export function proxy(req: NextRequest) {
   const publicApiRoutes = [
     "/api/auth/login",
     "/api/auth/register",
+    "/api/auth/forgot-password",
+    "/api/auth/reset-password",
   ];
 
   const isApiRoute =
