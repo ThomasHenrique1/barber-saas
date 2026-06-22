@@ -34,6 +34,17 @@ export async function POST(req: Request) {
       );
     }
 
+      if (!user.active) {
+      return NextResponse.json(
+        {
+          error: "Usuário desativado",
+        },
+        {
+          status: 403,
+        }
+      );
+    }
+
     const passwordMatch = await bcrypt.compare(
       password,
       user.password
