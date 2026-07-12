@@ -117,23 +117,7 @@ export async function getServices(): Promise<
     ORDER BY "createdAt" DESC
   `);
 
-  return result.rows.map(
-    (service: {
-      id: string;
-      name: string;
-      description: string | null;
-      price: string | number;
-      duration: number;
-      active: boolean;
-    }) => ({
-      id: service.id,
-      name: service.name,
-      description: service.description,
-      price: Number(service.price),
-      duration: service.duration,
-      active: service.active,
-    })
-  );
+  return result.rows.map(mapService);
 }
 
 export async function getServiceById(
@@ -189,14 +173,8 @@ export async function toggleService(
 
   const service = result.rows[0];
 
-  return {
-    id: service.id,
-    name: service.name,
-    description: service.description,
-    price: Number(service.price),
-    duration: service.duration,
-    active: service.active,
-  };
+  return mapService(service);
+
 }
 
 function mapService(service: {
