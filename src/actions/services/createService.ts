@@ -1,37 +1,40 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { getUser } from "@/lib/auth";
 
-const API_URL =
-  process.env.NEXT_PUBLIC_APP_URL ??
-  "http://localhost:3000";
+import {
+  createService as createServiceDb,
+} from "@/lib/services";
 
-export async function createService(data: {
+
+
+type CreateServiceData = {
   name: string;
+  description: string;
   price: number;
   duration: number;
-}) {
-  const response = await fetch(
-    `${API_URL}/api/services`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-      cache: "no-store",
+};
+
+export async function createService(
+  data: CreateServiceData
+) {
+
+  const user = await getUser();
+
+    if (!user || user.role !== "ADMIN") {
+      throw new Error("Não autorizado");
     }
-  );
 
-  if (!response.ok) {
-    const error = await response.json();
-
-    throw new Error(
-      error.error ?? "Erro ao criar serviço"
-    );
-  }
+  const service =
+    await createServiceDb({
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      duration: data.duration,
+    });
 
   revalidatePath("/dashboard/services");
 
-  return response.json();
+  return service;
 }
