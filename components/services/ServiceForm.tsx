@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 
 export type ServiceFormData = {
   name: string;
+  description: string;
   price: number;
   duration: number;
 };
@@ -38,6 +39,10 @@ export function ServiceForm({
     defaultValues?.duration?.toString() ?? ""
   );
 
+  const [description, setDescription] = useState(
+    defaultValues?.description ?? ""
+  );
+
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>
   ) {
@@ -45,6 +50,7 @@ export function ServiceForm({
 
     await onSubmit({
       name,
+      description,
       price: Number(price),
       duration: Number(duration),
     });
@@ -99,6 +105,21 @@ export function ServiceForm({
             setDuration(e.target.value)
           }
           placeholder="30"
+          disabled={isLoading}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium">
+          Descrição
+        </label>
+
+        <Input
+          value={description}
+          onChange={(e) =>
+            setDescription(e.target.value)
+          }
+          placeholder="Descrição do serviço"
           disabled={isLoading}
         />
       </div>
