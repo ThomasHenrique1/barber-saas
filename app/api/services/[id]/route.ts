@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getUser } from "@/lib/auth";
 import {
   updateService,
+  toggleService,
   deleteService,
 } from "@/lib/services";
 
@@ -13,13 +14,6 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await req.json();
-
-    const {
-      name,
-      description,
-      price,
-      duration,
-    } = body;
 
     const user = await getUser();
 
@@ -34,13 +28,43 @@ export async function PUT(
       );
     }
 
-    const service =
-      await updateService(id, {
-        name,
-        description,
-        price: Number(price),
-        duration: Number(duration),
-      });
+    // Atualização apenas do status (Ativar/Desativar)
+    if (
+      typeof body.active === "boolean" &&
+      body.name === undefined
+    ) {
+      const service = await toggleService(
+        id,
+        body.active
+      );
+
+      if (!service) {
+        return NextResponse.json(
+          {
+            error: "Serviço não encontrado",
+          },
+          {
+            status: 404,
+          }
+        );
+      }
+
+      return NextResponse.json(service);
+    }
+
+    const {
+      name,
+      description,
+      price,
+      duration,
+    } = body;
+
+    const service = await updateService(id, {
+      name,
+      description,
+      price: Number(price),
+      duration: Number(duration),
+    });
 
     if (!service) {
       return NextResponse.json(
