@@ -31,17 +31,17 @@ export default async function DashboardLayout({
     const user = verifyToken(token) as UserToken;
 
     return (
-      <div className="flex min-h-screen">
-        <Sidebar />
+      <div className="flex min-h-screen bg-background">
+  <Sidebar />
 
-        <div className="flex flex-1 flex-col">
-          <Topbar user={user} />
+  <div className="flex min-h-screen flex-1 flex-col">
+    <Topbar user={user} />
 
-          <div className="flex-1">
-            {children}
-          </div>
-        </div>
-      </div>
+    <main className="flex-1 overflow-y-auto">
+      {children}
+    </main>
+  </div>
+</div>
     );
   } catch {
     redirect("/login");

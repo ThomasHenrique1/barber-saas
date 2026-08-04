@@ -1,9 +1,13 @@
-import { LoginForm } from "@/components/auth/LoginForm"
+import { AuthLayout } from "@/components/auth/AuthLayout";
+import { LoginForm } from "@/components/auth/LoginForm";
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
+    <AuthLayout
+      title="Bem-vindo de volta."
+      subtitle="Acesse sua conta e continue gerenciando sua barbearia com rapidez, organização e segurança."
+    >
       <LoginForm />
-    </main>
+    </AuthLayout>
   );
 }

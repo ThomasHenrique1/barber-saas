@@ -36,13 +36,12 @@ export default async function BarbersPage() {
     return (
       <AppContainer>
         <PageHeader
+        
           title="Barbeiros"
-          description="Gerencie os barbeiros do sistema"
-        />
-
-        <div className="mb-6 flex justify-end">
+          description="Gerencie todos os profissionais cadastrados na sua barbearia."
+        >
           <CreateBarberDialog />
-        </div>
+        </PageHeader>
 
         <BarberTable
           barbers={barbers}

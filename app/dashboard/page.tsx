@@ -10,6 +10,7 @@ import {
 
 type UserToken = {
   id: string;
+  name: string;
   email: string;
   role: string;
 };

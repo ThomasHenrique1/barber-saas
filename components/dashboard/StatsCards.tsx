@@ -1,9 +1,10 @@
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  CalendarDays,
+  DollarSign,
+  Scissors,
+  Users,
+  TrendingUp,
+} from "lucide-react";
 
 type AdminStats = {
   users: number;
@@ -23,60 +24,101 @@ type StatsCardsProps = {
 export function StatsCards({
   stats,
 }: StatsCardsProps) {
-  const items = [
-    {
-      title: "Usuários",
-      value: stats.users,
-    },
+  const cards = [
     {
       title: "Clientes",
       value: stats.clients,
+      subtitle: "Clientes cadastrados",
+      icon: Users,
     },
     {
-      title: "Agendamentos",
-      value: stats.appointments,
-    },
-    {
-      title: "Agendamentos hoje",
+      title: "Agenda",
       value: stats.appointmentsToday,
-    },
-    {
-      title: "Agendamentos no mês",
-      value: stats.appointmentsMonth,
+      subtitle: "Agendamentos hoje",
+      icon: CalendarDays,
     },
     {
       title: "Serviços",
-      value: stats.services,
-    },
-    {
-      title: "Serviços ativos",
       value: stats.activeServices,
+      subtitle: "Serviços ativos",
+      icon: Scissors,
     },
     {
       title: "Receita",
-      value: `R$ ${Number(
-        stats.revenue
-      ).toFixed(2)}`,
+      value: stats.revenue.toLocaleString(
+        "pt-BR",
+        {
+          style: "currency",
+          currency: "BRL",
+        }
+      ),
+      subtitle: "Receita total",
+      icon: DollarSign,
     },
   ];
 
   return (
-    <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-      {items.map((item) => (
-        <Card key={item.title}>
-          <CardHeader>
-            <CardTitle className="text-base">
-              {item.title}
-            </CardTitle>
-          </CardHeader>
+    <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
 
-          <CardContent>
-            <p className="text-2xl font-bold">
-              {item.value}
-            </p>
-          </CardContent>
-        </Card>
-      ))}
+      {cards.map((card) => {
+        const Icon = card.icon;
+
+        return (
+          <article
+            key={card.title}
+            className="
+              group
+              relative
+              overflow-hidden
+              rounded-2xl
+              border
+              border-border
+              bg-card/70
+              p-6
+              backdrop-blur
+              transition-all
+              duration-300
+              hover:-translate-y-1
+              hover:border-primary/30
+            "
+          >
+            {/* Glow */}
+
+            <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-primary/10 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+            <div className="relative">
+
+              <div className="flex items-center justify-between">
+
+                <div className="rounded-xl bg-primary/10 p-3 text-primary">
+                  <Icon size={22} />
+                </div>
+
+                <TrendingUp
+                  size={18}
+                  className="text-emerald-500"
+                />
+
+              </div>
+
+              <h3 className="mt-8 text-3xl font-bold tracking-tight">
+                {card.value}
+              </h3>
+
+              <p className="mt-2 font-medium">
+                {card.title}
+              </p>
+
+              <p className="mt-1 text-sm text-muted-foreground">
+                {card.subtitle}
+              </p>
+
+            </div>
+
+          </article>
+        );
+      })}
+
     </section>
   );
 }

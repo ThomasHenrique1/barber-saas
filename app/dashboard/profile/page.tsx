@@ -1,36 +1,31 @@
 import { AppContainer } from "@/components/layout/AppContainer";
-import { PageHeader } from "@/components/layout/PageHeader";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
+import { ProfileHero } from "@/components/profile/ProfileHero";
+import { PersonalInfoCard } from "@/components/profile/PersonalInfoCard";
+import { SecurityCard } from "@/components/profile/SecurityCard";
 
 export default function ProfilePage() {
+  const user = {
+    name: "Thomas Navarro",
+    email: "thomas@email.com",
+    role: "Administrador",
+  };
+
   return (
     <AppContainer>
-      <PageHeader
-        title="Perfil"
-        description="Gerencie suas informações pessoais."
-      />
+      <div className="space-y-8">
 
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            Perfil
-          </CardTitle>
+        <ProfileHero user={user} />
 
-          <CardDescription>
-            Esta página será implementada nas próximas etapas.
-          </CardDescription>
-        </CardHeader>
+        <div className="grid gap-8">
 
-        <CardContent>
-          Em desenvolvimento...
-        </CardContent>
-      </Card>
+          <PersonalInfoCard user={user} />
+
+          <SecurityCard />
+
+        </div>
+
+      </div>
     </AppContainer>
   );
 }

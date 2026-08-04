@@ -1,17 +1,13 @@
-import { LogoutButton } from "@/components/auth/LogoutButton";
+import { DashboardHero } from "@/components/dashboard/DashboardHero";
+import { QuickActions } from "@/components/dashboard/QuickActions";
+import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { StatsCards } from "@/components/dashboard/StatsCards";
+import { TodayAppointments } from "@/components/dashboard/TodayAppointments";
 import { AppContainer } from "@/components/layout/AppContainer";
-import { PageHeader } from "@/components/layout/PageHeader";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 type User = {
   id: string;
+  name: string;
   email: string;
   role: string;
 };
@@ -38,69 +34,58 @@ export function DashboardHome({
 }: DashboardHomeProps) {
   return (
     <AppContainer>
-      <PageHeader
-        title="Dashboard"
-        description="Área autenticada do sistema"
-      >
-        <LogoutButton />
-      </PageHeader>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            Dados do usuário
-          </CardTitle>
+      <DashboardHero
+        userName={user.name}
+        appointmentsToday={
+          stats?.appointmentsToday ?? 0
+        }
+        expectedRevenue={
+          stats?.revenue ?? 0
+        }
+      />
 
-          <CardDescription>
-            Informações da conta logada
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent className="space-y-3">
-          <div>
-            <span className="font-medium">
-              Email:
-            </span>{" "}
-            {user.email}
-          </div>
-
-          <div>
-            <span className="font-medium">
-              Perfil:
-            </span>{" "}
-            {user.role}
-          </div>
-
-          <div>
-            <span className="font-medium">
-              ID:
-            </span>{" "}
-            {user.id}
-          </div>
-        </CardContent>
-      </Card>
-
-      {user.role === "ADMIN" && stats && (
+      {stats && (
         <StatsCards stats={stats} />
       )}
 
-      {user.role !== "ADMIN" && (
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              Painel do usuário
-            </CardTitle>
+      <section className="grid gap-6 xl:grid-cols-[2fr_1fr]">
 
-            <CardDescription>
-              Área inicial do sistema
-            </CardDescription>
-          </CardHeader>
+        <TodayAppointments
+          appointments={[
+            {
+              id: "1",
+              time: "09:00",
+              client: "João Pedro",
+              service: "Corte Degradê",
+              barber: "Carlos",
+              status: "CONFIRMED",
+            },
+            {
+              id: "2",
+              time: "10:30",
+              client: "Marcos Silva",
+              service: "Barba Premium",
+              barber: "Rafael",
+              status: "PENDING",
+            },
+            {
+              id: "3",
+              time: "13:00",
+              client: "Lucas Oliveira",
+              service: "Corte + Barba",
+              barber: "Gabriel",
+              status: "FINISHED",
+            },
+          ]}
+        />
 
-          <CardContent>
-            Seu painel ainda será montado.
-          </CardContent>
-        </Card>
-      )}
+        <QuickActions />
+
+      </section>
+
+      <RecentActivity />
+
     </AppContainer>
   );
 }

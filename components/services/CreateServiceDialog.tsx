@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { Plus, Scissors } from "lucide-react";
 import { toast } from "sonner";
 
 import { createService } from "@/src/actions/services/createService";
 
 import { Button } from "@/components/ui/button";
+
 import {
   Dialog,
   DialogContent,
@@ -57,26 +59,36 @@ export function CreateServiceDialog() {
       onOpenChange={setOpen}
     >
       <DialogTrigger asChild>
-        <Button>
+        <Button className="gap-2">
+          <Plus size={16} />
+
           Novo serviço
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-lg">
-        <DialogHeader>
-          <DialogTitle>
-            Novo serviço
-          </DialogTitle>
+      <DialogContent className="sm:max-w-xl">
+        <DialogHeader className="space-y-5">
 
-          <DialogDescription>
-            Cadastre um novo serviço para
-            disponibilizar aos clientes.
-          </DialogDescription>
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            <Scissors size={24} />
+          </div>
+
+          <div className="space-y-2">
+            <DialogTitle className="text-2xl">
+              Cadastrar serviço
+            </DialogTitle>
+
+            <DialogDescription className="text-base leading-7">
+              Preencha as informações abaixo para adicionar
+              um novo serviço ao catálogo da sua barbearia.
+            </DialogDescription>
+          </div>
+
         </DialogHeader>
 
         <ServiceForm
           isLoading={isLoading}
-          submitLabel="Cadastrar"
+          submitLabel="Cadastrar serviço"
           onSubmit={handleCreate}
         />
       </DialogContent>

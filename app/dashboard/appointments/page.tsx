@@ -1,11 +1,11 @@
+import { CalendarDays } from "lucide-react";
+
 import { AppContainer } from "@/components/layout/AppContainer";
 import { PageHeader } from "@/components/layout/PageHeader";
+
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 
 export default function AppointmentsPage() {
@@ -13,22 +13,26 @@ export default function AppointmentsPage() {
     <AppContainer>
       <PageHeader
         title="Agendamentos"
-        description="Gerencie os agendamentos do sistema."
+        description="Organize a agenda da sua barbearia e acompanhe todos os atendimentos em um só lugar."
       />
 
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            Agendamentos
-          </CardTitle>
+      <Card className="border-dashed">
+        <CardContent className="flex flex-col items-center justify-center py-24 text-center">
 
-          <CardDescription>
-            Esta página será implementada nas próximas etapas.
-          </CardDescription>
-        </CardHeader>
+          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            <CalendarDays size={30} />
+          </div>
 
-        <CardContent>
-          Em desenvolvimento...
+          <h2 className="text-2xl font-semibold">
+            Agenda em desenvolvimento
+          </h2>
+
+          <p className="mt-4 max-w-xl leading-7 text-muted-foreground">
+            Em breve você poderá visualizar todos os agendamentos,
+            controlar horários disponíveis, acompanhar atendimentos
+            do dia e organizar a agenda completa da sua equipe.
+          </p>
+
         </CardContent>
       </Card>
     </AppContainer>

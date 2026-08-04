@@ -1,9 +1,13 @@
+import { AuthLayout } from "@/components/auth/AuthLayout";
 import { RegisterForm } from "@/components/auth/RegisterForm";
 
 export default function RegisterPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
-      <RegisterForm />
-    </main>
+    <AuthLayout
+      title="Crie sua conta."
+      subtitle="Comece a organizar sua barbearia em poucos minutos."
+    > 
+    <RegisterForm />
+    </AuthLayout>
   );
 }
