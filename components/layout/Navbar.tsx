@@ -29,7 +29,7 @@ export function Navbar() {
         <div
           className="
             flex
-            h-[72px]
+            h-18
             items-center
             justify-between
             rounded-2xl
@@ -103,7 +103,7 @@ export function Navbar() {
                     absolute
                     -bottom-2
                     left-0
-                    h-[2px]
+                    h-0.5
                     w-0
                     rounded-full
                     bg-primary
