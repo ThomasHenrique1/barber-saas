@@ -72,19 +72,31 @@ export function LoginForm() {
       );
 
       const data = await response.json();
+      const role = data.user.role;
 
-      if (!response.ok) {
-        toast.error(
-          data.error ||
-            "Erro ao fazer login"
-        );
-        return;
-      }
+        if (!response.ok) {
+          toast.error(
+            role.error || "Erro ao fazer login"
+          );
+          return;
+        }
 
-      toast.success("Login realizado");
+        toast.success("Login realizado");
 
-      router.push("/dashboard");
-      router.refresh();
+        switch (role) {
+          case "ADMIN":
+            router.replace("/dashboard");
+            break;
+
+          case "CLIENT":
+            router.replace("/account");
+            break;
+
+          default:
+            router.replace("/");
+        }
+
+        router.refresh();
     } catch {
       toast.error(
         "Erro ao conectar com o servidor"
@@ -189,7 +201,7 @@ export function LoginForm() {
             </label>
 
             <Link
-          href=" /forgot-password"
+          href="/forgot-password"
           className="ml-2
               font-medium
               text-primary
