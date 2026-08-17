@@ -20,7 +20,6 @@ export default async function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
   const cookieStore = await cookies();
-
   const token = cookieStore.get("token")?.value;
 
   if (!token) {
@@ -32,16 +31,18 @@ export default async function DashboardLayout({
 
     return (
       <div className="flex min-h-screen bg-background">
-  <Sidebar />
+        <Sidebar />
 
-  <div className="flex min-h-screen flex-1 flex-col">
-    <Topbar user={user} />
+        <div className="flex min-h-screen flex-1 flex-col">
+          <Topbar user={user} />
 
-    <main className="flex-1 overflow-y-auto">
-      {children}
-    </main>
-  </div>
-</div>
+          <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div className="mx-auto max-w-7xl">
+              {children}
+            </div>
+          </main>
+        </div>
+      </div>
     );
   } catch {
     redirect("/login");
