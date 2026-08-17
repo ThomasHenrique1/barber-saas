@@ -1,40 +1,103 @@
-import { CalendarDays } from "lucide-react";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
+import { verifyToken } from "@/lib/jwt";
 
 import { AppContainer } from "@/components/layout/AppContainer";
 import { PageHeader } from "@/components/layout/PageHeader";
 
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
+import { getDashboardAppointments } from "@/src/actions/dashboard/get-dashboard-appointments";
 
-export default function AppointmentsPage() {
-  return (
-    <AppContainer>
-      <PageHeader
-        title="Agendamentos"
-        description="Organize a agenda da sua barbearia e acompanhe todos os atendimentos em um só lugar."
-      />
+import { AppointmentsTable } from "@/components/appointments/AppointmentsTable";
+import { AppointmentsFilters } from "@/components/appointments/AppointmentsFilters";
 
-      <Card className="border-dashed">
-        <CardContent className="flex flex-col items-center justify-center py-24 text-center">
+type UserToken = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+};
 
-          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-            <CalendarDays size={30} />
-          </div>
+type AppointmentsPageProps = {
+  searchParams: Promise<{
+    date?: string;
+    status?: string;
+    barberId?: string;
+  }>;
+};
 
-          <h2 className="text-2xl font-semibold">
-            Agenda em desenvolvimento
-          </h2>
+export default async function AppointmentsPage({
+  searchParams,
+}: AppointmentsPageProps) {
+  const cookieStore = await cookies();
 
-          <p className="mt-4 max-w-xl leading-7 text-muted-foreground">
-            Em breve você poderá visualizar todos os agendamentos,
-            controlar horários disponíveis, acompanhar atendimentos
-            do dia e organizar a agenda completa da sua equipe.
-          </p>
+  const token =
+    cookieStore.get("token")?.value;
 
-        </CardContent>
-      </Card>
-    </AppContainer>
-  );
+  if (!token) {
+    redirect("/login");
+  }
+
+  try {
+    const user =
+      verifyToken(token) as UserToken;
+
+    if (
+      user.role !== "ADMIN" &&
+      user.role !== "BARBER"
+    ) {
+      redirect("/dashboard");
+    }
+
+    const params = await searchParams;
+
+    const date =
+      params.date ??
+      new Date()
+        .toISOString()
+        .split("T")[0];
+
+    const status =
+      params.status ?? "";
+
+    const barberId =
+      user.role === "ADMIN"
+        ? params.barberId ?? ""
+        : user.id;
+
+    const appointments =
+      await getDashboardAppointments({
+        userId: user.id,
+        role: user.role,
+        date,
+        status,
+        barberId,
+      });
+
+    return (
+      <AppContainer>
+        <PageHeader
+          title="Agendamentos"
+          description="Organize a agenda da sua barbearia e acompanhe todos os atendimentos."
+        />
+
+        <div className="space-y-6">
+          <AppointmentsFilters
+            date={date}
+            status={status}
+            barberId={barberId}
+            role={user.role}
+          />
+
+          <AppointmentsTable
+            appointments={appointments}
+          />
+        </div>
+      </AppContainer>
+    );
+  } catch (error) {
+    console.error(error);
+
+    redirect("/login");
+  }
 }
