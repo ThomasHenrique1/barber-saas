@@ -1,9 +1,10 @@
 import { DashboardHero } from "@/components/dashboard/DashboardHero";
 import { QuickActions } from "@/components/dashboard/QuickActions";
-import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { StatsCards } from "@/components/dashboard/StatsCards";
 import { TodayAppointments } from "@/components/dashboard/TodayAppointments";
 import { AppContainer } from "@/components/layout/AppContainer";
+
+import type { TodayAppointment } from "@/src/actions/dashboard/get-today-appointments";
 
 type User = {
   id: string;
@@ -26,19 +27,21 @@ type AdminStats = {
 type DashboardHomeProps = {
   user: User;
   stats?: AdminStats | null;
+  appointments: TodayAppointment[];
 };
 
 export function DashboardHome({
   user,
   stats,
+  appointments,
 }: DashboardHomeProps) {
   return (
     <AppContainer>
-
       <DashboardHero
         userName={user.name}
         appointmentsToday={
-          stats?.appointmentsToday ?? 0
+          stats?.appointmentsToday ??
+          appointments.length
         }
         expectedRevenue={
           stats?.revenue ?? 0
@@ -50,41 +53,12 @@ export function DashboardHome({
       )}
 
       <section className="grid gap-6 xl:grid-cols-[2fr_1fr]">
-
         <TodayAppointments
-          appointments={[
-            {
-              id: "1",
-              time: "09:00",
-              client: "João Pedro",
-              service: "Corte Degradê",
-              barber: "Carlos",
-              status: "CONFIRMED",
-            },
-            {
-              id: "2",
-              time: "10:30",
-              client: "Marcos Silva",
-              service: "Barba Premium",
-              barber: "Rafael",
-              status: "PENDING",
-            },
-            {
-              id: "3",
-              time: "13:00",
-              client: "Lucas Oliveira",
-              service: "Corte + Barba",
-              barber: "Gabriel",
-              status: "FINISHED",
-            },
-          ]}
+          appointments={appointments}
         />
 
         <QuickActions />
-
       </section>
-
-      <RecentActivity />
 
     </AppContainer>
   );
