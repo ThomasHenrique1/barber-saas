@@ -6,6 +6,7 @@ import {
   CalendarPlus,
   Clock3,
   UserRound,
+  ChevronRight,
 } from "lucide-react";
 
 import {
@@ -41,14 +42,14 @@ const actions = [
 
 export function QuickActions() {
   return (
-    <Card className="rounded-3xl border-border">
-      <CardHeader>
-        <CardTitle>
+    <Card className="overflow-hidden rounded-3xl border-border bg-card shadow-sm transition-all hover:shadow-md">
+      <CardHeader className="border-b border-border/70 px-6 py-5">
+        <CardTitle className="text-xl font-bold tracking-tight">
           Ações rápidas
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-3 p-6">
         {actions.map((action) => {
           const Icon = action.icon;
 
@@ -59,44 +60,56 @@ export function QuickActions() {
               className="
                 group
                 flex
-                items-start
+                items-center
                 gap-4
                 rounded-2xl
                 border
-                border-border
+                border-border/70
+                bg-muted/20
                 p-4
                 transition-all
-                duration-200
-                hover:border-primary/40
+                duration-300
+                hover:border-primary/30
                 hover:bg-primary/5
+                hover:shadow-sm
+                hover:-translate-y-0.5
               "
             >
               <div
                 className="
                   flex
-                  h-11
-                  w-11
+                  h-12
+                  w-12
+                  shrink-0
                   items-center
                   justify-center
                   rounded-xl
                   bg-primary/10
                   text-primary
-                  transition-transform
-                  group-hover:scale-105
+                  transition-all
+                  duration-300
+                  group-hover:scale-110
+                  group-hover:bg-primary/20
                 "
               >
-                <Icon size={20} />
+                <Icon size={20} strokeWidth={1.5} />
               </div>
 
-              <div className="min-w-0">
-                <h3 className="font-semibold">
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold transition-colors group-hover:text-primary">
                   {action.title}
                 </h3>
 
-                <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                <p className="mt-0.5 text-sm text-muted-foreground">
                   {action.description}
                 </p>
               </div>
+
+              <ChevronRight 
+                size={18} 
+                strokeWidth={1.5}
+                className="text-muted-foreground/30 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-primary/50"
+              />
             </Link>
           );
         })}
