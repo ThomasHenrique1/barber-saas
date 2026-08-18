@@ -2,13 +2,10 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-
+import { Pencil, Loader2 } from "lucide-react";
 import type { UserItem } from "@/lib/users";
-
 import { updateBarberAction } from "@/src/actions/barbers/updateBarber";
-
 import { Button } from "@/components/ui/button";
-
 import {
   Dialog,
   DialogContent,
@@ -17,47 +14,29 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-import {
-  BarberForm,
-  type BarberFormData,
-} from "./BarberForm";
+import { BarberForm, type BarberFormData } from "./BarberForm";
 
 type Props = {
   barber: UserItem;
 };
 
-export function EditBarberDialog({
-  barber,
-}: Props) {
-  const [open, setOpen] =
-    useState(false);
+export function EditBarberDialog({ barber }: Props) {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] =
-    useState(false);
-
-  async function handleSubmit(
-    data: BarberFormData
-  ) {
+  async function handleSubmit(data: BarberFormData) {
     try {
       setLoading(true);
-
       await updateBarberAction({
         id: barber.id,
         name: data.name,
         email: data.email,
       });
-
-      toast.success(
-        "Barbeiro atualizado."
-      );
-
+      toast.success(`Barbeiro "${barber.name}" atualizado com sucesso.`);
       setOpen(false);
     } catch (error) {
       toast.error(
-        error instanceof Error
-          ? error.message
-          : "Erro ao atualizar."
+        error instanceof Error ? error.message : "Erro ao atualizar barbeiro."
       );
     } finally {
       setLoading(false);
@@ -65,27 +44,19 @@ export function EditBarberDialog({
   }
 
   return (
-    <Dialog
-      open={open}
-      onOpenChange={setOpen}
-    >
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-        >
-          Editar
+        <Button variant="outline" size="sm" className="gap-1.5">
+          <Pencil size={14} />
+          <span className="hidden sm:inline">Editar</span>
         </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>
-            Editar barbeiro
-          </DialogTitle>
-
+          <DialogTitle>Editar barbeiro</DialogTitle>
           <DialogDescription>
-            Atualize as informações.
+            Atualize as informações do barbeiro <strong>"{barber.name}"</strong>.
           </DialogDescription>
         </DialogHeader>
 
