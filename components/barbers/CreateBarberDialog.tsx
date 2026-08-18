@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import { UserPlus } from "lucide-react";
 
 import { createBarberAction } from "@/src/actions/barbers/createBarber";
-
 import { Button } from "@/components/ui/button";
-
 import {
   Dialog,
   DialogContent,
@@ -15,41 +14,25 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-import {
-  BarberForm,
-  type BarberFormData,
-} from "./BarberForm";
+import { BarberForm, type BarberFormData } from "./BarberForm";
 
 export function CreateBarberDialog() {
-  const [open, setOpen] =
-    useState(false);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] =
-    useState(false);
-
-  async function handleSubmit(
-    data: BarberFormData
-  ) {
+  async function handleSubmit(data: BarberFormData) {
     try {
       setLoading(true);
-
       await createBarberAction({
         name: data.name,
         email: data.email,
         password: data.password!,
       });
-
-      toast.success(
-        "Barbeiro cadastrado com sucesso."
-      );
-
+      toast.success("Barbeiro cadastrado com sucesso.");
       setOpen(false);
     } catch (error) {
       toast.error(
-        error instanceof Error
-          ? error.message
-          : "Erro ao cadastrar barbeiro."
+        error instanceof Error ? error.message : "Erro ao cadastrar barbeiro."
       );
     } finally {
       setLoading(false);
@@ -57,24 +40,19 @@ export function CreateBarberDialog() {
   }
 
   return (
-    <Dialog
-      open={open}
-      onOpenChange={setOpen}
-    >
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>
+        <Button className="gap-2">
+          <UserPlus size={18} />
           Novo barbeiro
         </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>
-            Novo barbeiro
-          </DialogTitle>
-
+          <DialogTitle>Novo barbeiro</DialogTitle>
           <DialogDescription>
-            Cadastre um novo barbeiro.
+            Preencha os dados abaixo para cadastrar um novo profissional.
           </DialogDescription>
         </DialogHeader>
 
