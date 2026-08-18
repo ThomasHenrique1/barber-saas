@@ -96,6 +96,7 @@ export async function createAppointmentAction(
         SELECT
           id,
           duration,
+          price,
           active
         FROM "Service"
         WHERE id = $1
@@ -222,17 +223,54 @@ export async function createAppointmentAction(
     const appointmentId =
       uuidv4();
 
-    const result =
+    const paymentId =
+      uuidv4();
+
+    await db.query("BEGIN");
+
+    try {
+      const appointmentResult =
+        await db.query(
+          `
+          INSERT INTO "Appointment"
+          (
+            id,
+            date,
+            "clientId",
+            "barberId",
+            "serviceId",
+            notes
+          )
+          VALUES
+          (
+            $1,
+            $2,
+            $3,
+            $4,
+            $5,
+            $6
+          )
+          RETURNING *
+          `,
+          [
+            appointmentId,
+            appointmentDate,
+            user.id,
+            input.barberId,
+            input.serviceId,
+            input.notes ?? null,
+          ]
+        );
+
       await db.query(
         `
-        INSERT INTO "Appointment"
+        INSERT INTO "Payment"
         (
           id,
-          date,
-          "clientId",
-          "barberId",
-          "serviceId",
-          notes
+          "appointmentId",
+          amount,
+          method,
+          status
         )
         VALUES
         (
@@ -240,31 +278,35 @@ export async function createAppointmentAction(
           $2,
           $3,
           $4,
-          $5,
-          $6
+          $5
         )
-        RETURNING *
         `,
         [
+          paymentId,
           appointmentId,
-          appointmentDate,
-          user.id,
-          input.barberId,
-          input.serviceId,
-          input.notes ?? null,
+          Number(service.price),
+          "PENDING",
+          "PENDING",
         ]
       );
 
-    await createAuditLog(
-      "CREATE_APPOINTMENT",
-      user.id,
-      `Agendamento criado: ${appointmentId}`
-    );
+      await db.query("COMMIT");
 
-    return {
-      success: true,
-      data: result.rows[0],
-    };
+      await createAuditLog(
+        "CREATE_APPOINTMENT",
+        user.id,
+        `Agendamento criado: ${appointmentId}`
+      );
+
+      return {
+        success: true,
+        data: appointmentResult.rows[0],
+      };
+    } catch (error) {
+      await db.query("ROLLBACK");
+
+      throw error;
+    }
   } catch (error) {
     console.error(
       "createAppointmentAction:",
