@@ -1,6 +1,4 @@
-import Link from "next/link";
 import {
-  ArrowRight,
   CalendarDays,
   CreditCard,
   LayoutDashboard,
@@ -13,37 +11,37 @@ const features = [
   {
     title: "Clientes",
     description:
-      "Cadastre clientes, acompanhe o histórico de atendimentos e mantenha todas as informações organizadas em um único lugar.",
+      "Centralize os dados dos clientes, acompanhe seus atendimentos e mantenha o histórico organizado em um único lugar.",
     icon: Users,
   },
   {
     title: "Barbeiros",
     description:
-      "Gerencie sua equipe, disponibilidade, permissões e produtividade de forma simples e intuitiva.",
+      "Organize sua equipe, gerencie barbeiros e mantenha as informações dos profissionais centralizadas.",
     icon: Scissors,
   },
   {
     title: "Agendamentos",
     description:
-      "Controle toda a agenda da barbearia, confirme horários e evite conflitos entre atendimentos.",
+      "Organize os horários da barbearia, acompanhe os atendimentos e evite conflitos na agenda da equipe.",
     icon: CalendarDays,
   },
   {
     title: "Financeiro",
     description:
-      "Acompanhe receitas, pagamentos, formas de pagamento e desempenho financeiro em tempo real.",
+      "Acompanhe pagamentos, receitas e o status financeiro dos atendimentos realizados pela sua barbearia.",
     icon: CreditCard,
   },
   {
     title: "Dashboard",
     description:
-      "Visualize indicadores importantes da operação através de gráficos e métricas inteligentes.",
+      "Tenha uma visão geral da operação com indicadores de agendamentos, clientes, serviços e receitas.",
     icon: LayoutDashboard,
   },
   {
     title: "Segurança",
     description:
-      "Controle de acesso por níveis de usuário, autenticação segura e proteção das informações da empresa.",
+      "Controle o acesso às informações de acordo com o perfil de cada usuário e mantenha os dados da operação protegidos.",
     icon: ShieldCheck,
   },
 ];
@@ -68,9 +66,9 @@ export function Features() {
           </h2>
 
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            O BarberHub foi desenvolvido para centralizar
-            toda a operação do seu negócio em uma única
-            plataforma moderna e intuitiva.
+            O BarberHub centraliza os principais processos
+            da sua barbearia em uma única plataforma,
+            facilitando a organização da equipe e da rotina.
           </p>
         </div>
 
@@ -109,15 +107,6 @@ export function Features() {
                 <p className="mt-5 leading-7 text-muted-foreground">
                   {feature.description}
                 </p>
-
-                <Link
-                  href="/login"
-                  className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-primary transition-all duration-300 group-hover:gap-3"
-                >
-                  Conhecer módulo
-
-                  <ArrowRight size={16} />
-                </Link>
               </div>
             );
           })}
