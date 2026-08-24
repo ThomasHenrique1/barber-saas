@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  CreditCard,
+  CalendarCheck,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -9,18 +9,16 @@ import {
 export function CTA() {
   return (
     <section className="relative py-32">
-
       {/* Glow */}
 
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle,rgba(59,130,246,.08),transparent_65%)]" />
 
       <div className="mx-auto max-w-7xl px-6">
-
         <div
           className="
             relative
             overflow-hidden
-            rounded-[32px]
+            rounded-4xl
             border
             border-border
             bg-card/70
@@ -38,7 +36,7 @@ export function CTA() {
               inset-x-0
               top-0
               h-px
-              bg-gradient-to-r
+              bg-linear-to-r
               from-transparent
               via-primary/50
               to-transparent
@@ -62,22 +60,21 @@ export function CTA() {
           </div>
 
           <h2 className="mt-10 text-4xl font-bold leading-tight lg:text-5xl">
-            Pronto para transformar
+            Tenha o controle da sua
             <span className="block text-primary">
-              sua barbearia?
+              barbearia em um só lugar.
             </span>
           </h2>
 
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-muted-foreground">
-            Centralize clientes, agenda, barbeiros e financeiro
-            em uma única plataforma desenvolvida para facilitar
-            sua rotina e impulsionar o crescimento do seu negócio.
+            Organize clientes, agenda, barbeiros, serviços e pagamentos
+            em uma única plataforma. Mais controle para sua operação
+            e mais clareza para tomar decisões.
           </p>
 
           {/* Botões */}
 
           <div className="mt-12 flex flex-col justify-center gap-4 sm:flex-row">
-
             <Link
               href="/register"
               className="
@@ -97,7 +94,7 @@ export function CTA() {
                 hover:-translate-y-0.5
               "
             >
-              Criar minha conta
+              Começar agora
 
               <ArrowRight
                 size={18}
@@ -122,22 +119,20 @@ export function CTA() {
                 hover:border-primary/30
               "
             >
-              Já tenho uma conta
+              Acessar minha conta
             </Link>
-
           </div>
 
           {/* Benefícios */}
 
           <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-muted-foreground">
-
             <div className="flex items-center gap-2">
-              <Sparkles
+              <CalendarCheck
                 size={18}
                 className="text-primary"
               />
 
-              Configuração em poucos minutos
+              Agenda organizada
             </div>
 
             <div className="flex items-center gap-2">
@@ -146,24 +141,20 @@ export function CTA() {
                 className="text-primary"
               />
 
-              Dados protegidos
+              Controle da operação
             </div>
 
             <div className="flex items-center gap-2">
-              <CreditCard
+              <Sparkles
                 size={18}
                 className="text-primary"
               />
 
-              Sem cartão de crédito
+              Gestão centralizada
             </div>
-
           </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }
