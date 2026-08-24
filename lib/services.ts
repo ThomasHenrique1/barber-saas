@@ -174,7 +174,6 @@ export async function toggleService(
   const service = result.rows[0];
 
   return mapService(service);
-
 }
 
 function mapService(service: {
@@ -198,6 +197,20 @@ function mapService(service: {
 export async function deleteService(
   id: string
 ): Promise<boolean> {
+  const appointmentResult = await db.query(
+    `
+    SELECT 1
+    FROM "Appointment"
+    WHERE "serviceId" = $1
+    LIMIT 1
+    `,
+    [id]
+  );
+
+  if (appointmentResult.rows.length > 0) {
+    return false;
+  }
+
   const result = await db.query(
     `
     DELETE FROM "Service"
