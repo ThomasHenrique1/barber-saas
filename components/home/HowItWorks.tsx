@@ -10,7 +10,7 @@ const steps = [
     number: "01",
     title: "Agendamento",
     description:
-      "O cliente escolhe o serviço, o profissional e o melhor horário disponível em poucos cliques.",
+      "O cliente escolhe o serviço, o barbeiro e um horário disponível para realizar seu agendamento.",
     icon: CalendarPlus2,
   },
   {
@@ -24,14 +24,14 @@ const steps = [
     number: "03",
     title: "Pagamento",
     description:
-      "Registre pagamentos e mantenha o controle financeiro sempre atualizado.",
+      "Após o atendimento, registre o pagamento e mantenha os valores recebidos e pendentes sob controle.",
     icon: Wallet,
   },
   {
     number: "04",
     title: "Gestão",
     description:
-      "Relatórios, indicadores e desempenho da equipe são atualizados automaticamente.",
+      "Acompanhe agendamentos, clientes, serviços, equipe e indicadores da sua barbearia em um único lugar.",
     icon: LayoutDashboard,
   },
 ];
@@ -39,15 +39,12 @@ const steps = [
 export function HowItWorks() {
   return (
     <section className="relative overflow-hidden py-32">
-
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(201,162,39,.04),transparent_70%)]" />
 
       <div className="mx-auto max-w-7xl px-6">
-
         {/* Header */}
 
         <div className="mx-auto max-w-3xl text-center">
-
           <span className="inline-flex rounded-full border border-primary/20 bg-primary/10 px-5 py-2 text-sm font-medium text-primary">
             Como funciona
           </span>
@@ -57,23 +54,20 @@ export function HowItWorks() {
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-            Da chegada do cliente ao fechamento do caixa,
-            tudo acontece de forma organizada, automática
-            e integrada.
+            Do agendamento ao pagamento, o BarberHub organiza
+            as principais etapas da operação da sua barbearia
+            em um único sistema.
           </p>
-
         </div>
 
         {/* Timeline Desktop */}
 
         <div className="relative mt-24 hidden lg:block">
-
           {/* Linha */}
 
           <div className="absolute left-0 right-0 top-11 h-px bg-border" />
 
           <div className="grid grid-cols-4 gap-10">
-
             {steps.map((step) => {
               const Icon = step.icon;
 
@@ -118,7 +112,6 @@ export function HowItWorks() {
                   </div>
 
                   <div className="mt-10 text-center">
-
                     <h3 className="text-xl font-semibold">
                       {step.title}
                     </h3>
@@ -126,21 +119,16 @@ export function HowItWorks() {
                     <p className="mt-4 leading-7 text-muted-foreground">
                       {step.description}
                     </p>
-
                   </div>
-
                 </article>
               );
             })}
-
           </div>
-
         </div>
 
         {/* Mobile */}
 
         <div className="mt-20 space-y-10 lg:hidden">
-
           {steps.map((step, index) => {
             const Icon = step.icon;
 
@@ -186,33 +174,27 @@ export function HowItWorks() {
                 <p className="mt-3 leading-7 text-muted-foreground">
                   {step.description}
                 </p>
-
               </div>
             );
           })}
-
         </div>
 
         {/* Footer */}
 
         <div className="mx-auto mt-24 max-w-3xl text-center">
-
-          <div className="mx-auto mb-10 h-px w-40 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+          <div className="mx-auto mb-10 h-px w-40 bg-linear-to-r from-transparent via-primary/30 to-transparent" />
 
           <h3 className="text-2xl font-semibold">
-            Tudo sincronizado automaticamente.
+            Tudo organizado em um só lugar.
           </h3>
 
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            Sem planilhas. Sem anotações espalhadas.
-            Apenas uma plataforma organizada para acompanhar
-            toda a operação da sua barbearia.
+            Sem planilhas. Sem informações espalhadas.
+            O BarberHub reúne a rotina da sua barbearia
+            para você acompanhar cada etapa com mais controle.
           </p>
-
         </div>
-
       </div>
-
     </section>
   );
 }
