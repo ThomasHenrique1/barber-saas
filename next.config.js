@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+images: {
+    qualities: [100,25, 50, 75],
+  },
 };
 
 module.exports = nextConfig;
