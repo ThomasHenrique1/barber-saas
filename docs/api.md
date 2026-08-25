@@ -182,7 +182,7 @@ Responsável por fornecer informações administrativas, incluindo:
 
 ---
 
-# Autenticação da API
+## Autenticação da API
 
 Os endpoints protegidos verificam o token armazenado no cookie da requisição.
 
@@ -216,7 +216,7 @@ Também com status:
 
 ---
 
-# Organização dos endpoints
+## Organização dos endpoints
 
 ```text
 api/

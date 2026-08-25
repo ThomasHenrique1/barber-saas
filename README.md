@@ -4,7 +4,7 @@
 
 # BarberHub
 
-### Plataforma completa para gestão de barbearias
+## Plataforma completa para gestão de barbearias
 
 Organize clientes, barbeiros, serviços, agendamentos e pagamentos em uma única plataforma.
 
@@ -337,14 +337,6 @@ O BarberHub está em desenvolvimento ativo.
 * [ ] Pipeline de CI/CD
 
 ---
-
-## Desenvolvido por
-
-**Thomas Henrique**
-
-Projeto desenvolvido para portfólio com foco em demonstrar conhecimentos em desenvolvimento Full Stack, arquitetura de aplicações web, autenticação, APIs, banco de dados e regras de negócio.
-
-<br />
 
 <div align="center">
 

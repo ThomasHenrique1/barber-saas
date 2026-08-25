@@ -32,7 +32,7 @@ O BarberHub utiliza o App Router do Next.js e organiza a aplicação separando i
 
 ---
 
-# Estrutura do projeto
+## Estrutura do projeto
 
 ```text
 barber-saas/
@@ -85,7 +85,7 @@ barber-saas/
 
 ---
 
-# Camadas da aplicação
+## Camadas da aplicação
 
 ## app
 
@@ -122,7 +122,7 @@ Contém os Route Handlers organizados por domínio.
 
 ---
 
-# components
+## components
 
 Os componentes são organizados de acordo com o domínio da aplicação.
 
@@ -146,7 +146,7 @@ Os demais diretórios contêm componentes específicos de cada domínio.
 
 ---
 
-# Server Actions
+## Server Actions
 
 As Server Actions estão organizadas em:
 
@@ -213,7 +213,7 @@ updateService
 
 ---
 
-# Camada lib
+## Camada lib
 
 A pasta `lib` concentra funcionalidades reutilizáveis e acesso aos dados.
 
@@ -229,7 +229,7 @@ A pasta `lib` concentra funcionalidades reutilizáveis e acesso aos dados.
 
 ---
 
-# Banco de dados
+## Banco de dados
 
 O projeto utiliza PostgreSQL como banco de dados principal.
 
@@ -247,7 +247,7 @@ As tabelas principais são:
 
 ---
 
-# Autenticação e proteção
+## Autenticação e proteção
 
 A aplicação utiliza JWT para validar o acesso às áreas protegidas.
 
